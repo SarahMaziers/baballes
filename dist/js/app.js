@@ -10,9 +10,20 @@
 var canvas = document.querySelector('canvas');
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
+
+function draw() {
+  var ctx = canvas.getContext('2d');
+  ctx.beginPath();
+  ctx.arc(canvas.width / 2, canvas.height / 2, canvas.width / 4, 0, Math.PI);
+  ctx.arc;
+  ctx.stroke();
+}
+
+draw();
 window.addEventListener('resize', function () {
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
+  draw();
 });
 
 /***/ }),
