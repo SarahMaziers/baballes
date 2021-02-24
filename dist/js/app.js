@@ -7,7 +7,46 @@
   \********************/
 /***/ (() => {
 
-throw new Error("Module build failed (from ./node_modules/babel-loader/lib/index.js):\nSyntaxError: /Users/sarahmaziers/Desktop/Infographie 2e/Vilain - Multimedia/baballes 2/src/app.js: Unexpected token, expected \")\" (22:43)\n\n\u001b[0m \u001b[90m 20 |\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 21 |\u001b[39m \u001b[36mfunction\u001b[39m animate(){\u001b[0m\n\u001b[0m\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 22 |\u001b[39m     \u001b[36mif\u001b[39m(position\u001b[33m.\u001b[39my \u001b[33m+\u001b[39m radius \u001b[33m>\u001b[39m canvas\u001b[33m.\u001b[39mheight \u001b[33mOR\u001b[39m position\u001b[33m.\u001b[39my \u001b[33m-\u001b[39m radius \u001b[33m<\u001b[39m \u001b[35m0\u001b[39m){\u001b[0m\n\u001b[0m \u001b[90m    |\u001b[39m                                            \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 23 |\u001b[39m         ySpeed\u001b[33m=\u001b[39m\u001b[33m-\u001b[39mySpeed\u001b[0m\n\u001b[0m \u001b[90m 24 |\u001b[39m     }\u001b[0m\n\u001b[0m \u001b[90m 25 |\u001b[39m     position\u001b[33m.\u001b[39my\u001b[33m+=\u001b[39mySpeed\u001b[0m\n    at Parser._raise (/Users/sarahmaziers/Desktop/Infographie 2e/Vilain - Multimedia/baballes 2/node_modules/@babel/parser/lib/index.js:776:17)\n    at Parser.raiseWithData (/Users/sarahmaziers/Desktop/Infographie 2e/Vilain - Multimedia/baballes 2/node_modules/@babel/parser/lib/index.js:769:17)\n    at Parser.raise (/Users/sarahmaziers/Desktop/Infographie 2e/Vilain - Multimedia/baballes 2/node_modules/@babel/parser/lib/index.js:737:17)\n    at Parser.unexpected (/Users/sarahmaziers/Desktop/Infographie 2e/Vilain - Multimedia/baballes 2/node_modules/@babel/parser/lib/index.js:9675:16)\n    at Parser.expect (/Users/sarahmaziers/Desktop/Infographie 2e/Vilain - Multimedia/baballes 2/node_modules/@babel/parser/lib/index.js:9661:28)\n    at Parser.parseHeaderExpression (/Users/sarahmaziers/Desktop/Infographie 2e/Vilain - Multimedia/baballes 2/node_modules/@babel/parser/lib/index.js:12467:10)\n    at Parser.parseIfStatement (/Users/sarahmaziers/Desktop/Infographie 2e/Vilain - Multimedia/baballes 2/node_modules/@babel/parser/lib/index.js:12548:22)\n    at Parser.parseStatementContent (/Users/sarahmaziers/Desktop/Infographie 2e/Vilain - Multimedia/baballes 2/node_modules/@babel/parser/lib/index.js:12240:21)\n    at Parser.parseStatement (/Users/sarahmaziers/Desktop/Infographie 2e/Vilain - Multimedia/baballes 2/node_modules/@babel/parser/lib/index.js:12195:17)\n    at Parser.parseBlockOrModuleBlockBody (/Users/sarahmaziers/Desktop/Infographie 2e/Vilain - Multimedia/baballes 2/node_modules/@babel/parser/lib/index.js:12777:25)");
+var canvas = document.querySelector('canvas');
+var ySpeed = 3;
+var position = {
+  x: canvas.width / 2,
+  y: canvas.width / 2
+};
+var radius = canvas.width / 10;
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+var colors = ['#00000'];
+var ctx = canvas.getContext('2d');
+ctx.fillstyle = colors.sort(function () {
+  return 0.5 - Math.random();
+});
+
+function draw() {
+  ctx.beginPath();
+  ctx.arc(position.canvas.width / 2, position.canvas.height / 2, radius, 0, Math.PI);
+  ctx.fill();
+}
+
+draw();
+
+function animate() {
+  if (position.y + radius > canvas.height || position.y - radius < 0) {
+    ySpeed = -ySpeed;
+  }
+
+  position.y += ySpeed;
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  draw();
+  window.requestAnimationFrame(animate);
+}
+
+animate();
+window.addEventListener('resize', function () {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+  draw();
+});
 
 /***/ }),
 

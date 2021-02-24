@@ -19,7 +19,7 @@ function draw(){
 draw()
 
 function animate(){
-    if(position.y + radius > canvas.height OR position.y - radius < 0){
+    if(position.y + radius > canvas.height || position.y - radius < 0){
         ySpeed=-ySpeed
     }
     position.y+=ySpeed
