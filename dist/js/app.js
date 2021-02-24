@@ -7,14 +7,20 @@
   \********************/
 /***/ (() => {
 
-
+var canvas = document.querySelector('canvas');
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+window.addEventListener('resize', function () {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+});
 
 /***/ }),
 
-/***/ "./src/app.scss":
-/*!**********************!*\
-  !*** ./src/app.scss ***!
-  \**********************/
+/***/ "./src/main.scss":
+/*!***********************!*\
+  !*** ./src/main.scss ***!
+  \***********************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -80,12 +86,12 @@ __webpack_require__.r(__webpack_exports__);
 /******/ 		// undefined = chunk not loaded, null = chunk preloaded/prefetched
 /******/ 		// Promise = chunk loading, 0 = chunk loaded
 /******/ 		var installedChunks = {
-/******/ 			"/app": 0
+/******/ 			"/js/app": 0
 /******/ 		};
 /******/ 		
 /******/ 		var deferredModules = [
 /******/ 			["./src/app.js"],
-/******/ 			["./src/app.scss"]
+/******/ 			["./src/main.scss"]
 /******/ 		];
 /******/ 		// no chunk on demand loading
 /******/ 		
