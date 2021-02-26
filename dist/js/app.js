@@ -11,12 +11,12 @@ var canvas = document.querySelector('canvas');
 var ySpeed = 3;
 var position = {
   x: canvas.width / 2,
-  y: canvas.width / 2
+  y: canvas.height / 2
 };
 var radius = canvas.width / 10;
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
-var colors = ['#00000'];
+var colors = ['#40A497'];
 var ctx = canvas.getContext('2d');
 ctx.fillstyle = colors.sort(function () {
   return 0.5 - Math.random();
@@ -24,7 +24,7 @@ ctx.fillstyle = colors.sort(function () {
 
 function draw() {
   ctx.beginPath();
-  ctx.arc(position.canvas.width / 2, position.canvas.height / 2, radius, 0, Math.PI);
+  ctx.arc(position.x / 2, position.y / 2, radius, 0, Math.PI);
   ctx.fill();
 }
 
