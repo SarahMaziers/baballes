@@ -1,3 +1,5 @@
+import Circle from "./Circle";
+
 let canvas= document.querySelector('canvas')
 canvas.width=window.innerWidth
 canvas.height=window.innerHeight
@@ -53,10 +55,11 @@ const circle= {
         }
 
     }
-
+circles.push(new Circle(canvas))
 
 circle.init();
-
+//ajouter un objet avec push()
+//le new instantie un nouvel objet
 window.addEventListener('resize',()=>{
     canvas.width=window.innerWidth
     canvas.height=window.innerHeight
