@@ -1,5 +1,6 @@
 let canvas= document.querySelector('canvas')
-let ySpeed=3
+let ySpeed=2+Math.floor(Math.random()*5)
+let xSpeed=2+Math.floor(Math.random()*5)
 const position={
     x:canvas.width/2,
     y:canvas.height/2
@@ -24,6 +25,7 @@ function animate(){
         ySpeed=-ySpeed
     }
     position.y+=ySpeed
+    position.x+=xSpeed
     ctx.clearRect(0,0,canvas.width,canvas.height)
     draw();
     window.requestAnimationFrame(animate);
