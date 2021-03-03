@@ -1,75 +1,140 @@
 /******/ (() => { // webpackBootstrap
+/******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
+
+/***/ "./src/Circle.js":
+/*!***********************!*\
+  !*** ./src/Circle.js ***!
+  \***********************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var Circle = /*#__PURE__*/function () {
+  function Circle(canvas, ctx) {
+    _classCallCheck(this, Circle);
+
+    this.ctx = ctx;
+    this.canvas = canvas;
+    this.speed = {
+      x: -2 + Math.random() * 5,
+      y: -2 + Math.random() * 5
+    };
+    this.radius = 5 + Math.random() * 5; //entre 5 et 10
+
+    this.position = {
+      x: this.radius + Math.random() * (canvas.width - 2 * this.radius),
+      y: this.radius + Math.random() * (canvas.height - 2 * this.radius)
+    };
+    this.color = Circle.colors.sort(function () {
+      return 0.5 - Math.random();
+    })[0]; //moyen de tirer un evaleur aléatoire dans un array
+
+    this.update();
+  }
+
+  _createClass(Circle, [{
+    key: "draw",
+    value: function draw() {
+      this.ctx.fillstyle = this.color;
+      this.ctx.beginPath();
+      this.ctx.arc(this.position.x, this.position.y, this.radius, 0, 2 * Math.PI);
+      this.ctx.fill();
+    }
+  }, {
+    key: "update",
+    value: function update() {
+      if (this.position.y + this.radius > this.canvas.height || this.position.y - this.radius < 0) {
+        this.speed.y = -this.speed.y;
+      }
+
+      if (this.position.x + this.radius > this.canvas.width || this.position.x - this.radius < 0) {
+        this.speed.x = -this.speed.x;
+      }
+
+      this.position.y += this.speed.y;
+      this.position.x += this.speed.x;
+      this.draw();
+    }
+  }], [{
+    key: "colors",
+    get: function get() {
+      return ['#40A497', 'black', 'red'];
+    }
+  }]);
+
+  return Circle;
+}();
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Circle);
+
+/***/ }),
 
 /***/ "./src/app.js":
 /*!********************!*\
   !*** ./src/app.js ***!
   \********************/
-/***/ (() => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-var canvas = document.querySelector('canvas');
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight; //2+Math.floor(Math.random()*5) //valeur comprise entre 2 et 6 car le math.floor arrondit vers le bas et math.random contient une valeur entre 0 et 1
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _Circle__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Circle */ "./src/Circle.js");
 
-var circles = [];
-var circlesCount = 100; //const radius= canvas.width/10
-
-var ctx = canvas.getContext('2d');
-var circle = {
-  position: null,
-  // quand on déclare des propriétés on ne peut pas prendre des valeurs d'autres propriétés, d'abord la déclarer
-  speed: 0,
-  radius: 0,
-  colors: ['#40A497', 'black', 'red'],
-  color: '',
+var animation = {
+  canvas: document.querySelector('canvas'),
+  circles: [],
+  circlesCount: 100,
+  ctx: null,
+  //car on peut pas faire référence à d'autres propriétés lors de la déclaration
+  mouse: {
+    x: undefined,
+    y: undefined,
+    zoneSize: 50
+  },
   init: function init() {
-    this.speed = {
-      x: 2 + Math.floor(Math.random() * 5),
-      y: 2 + Math.floor(Math.random() * 5)
-    };
-    this.radius = canvas.width / 10;
-    this.position = {
-      x: canvas.width / 2,
-      y: canvas.height / 2
-    };
-    this.color = this.colors.sort(function () {
-      return 0.5 - Math.random();
-    })[0]; //moyen de tirer un evaleur aléatoire dans un array
-
-    this.update();
-  },
-  draw: function draw() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height); //on demande à Canvas de s'effacer sinon les cercles vont se dessiner les uns sur les autres
-
-    ctx.fillstyle = this.color;
-    ctx.beginPath();
-    ctx.arc(this.position.x, this.position.y, this.radius, 0, 2 * Math.PI);
-    ctx.fill();
-  },
-  update: function update() {
     var _this = this;
 
-    if (this.position.y + this.radius > canvas.height || this.position.y - this.radius < 0) {
-      this.speed.y = -this.speed.y;
-    }
+    this.ctx = this.canvas.getContext('2d'); //this car on fait référence aux propriétés de l'objet
 
-    if (this.position.x + this.radius > canvas.width || this.position.x - this.radius < 0) {
-      this.speed.x = -this.speed.x;
-    }
+    this.canvas.width = window.innerWidth;
+    this.canvas.height = window.innerHeight;
 
-    this.position.y += this.speed.y;
-    this.position.x += this.speed.x;
-    this.draw();
+    for (var i = 0; i < this.circlesCount; i++) {
+      this.circles.push(new _Circle__WEBPACK_IMPORTED_MODULE_0__.default(this.canvas, this.ctx));
+      window.addEventListener('resize', function () {
+        _this.canvas.width = window.innerWidth;
+        _this.canvas.height = window.innerHeight;
+      });
+      this.animate();
+    }
+  },
+  animate: function animate() {
+    var _this2 = this;
+
+    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    this.circles.forEach(function (circle) {
+      return circle.update();
+    }); //dire à chacun de nos cercles de se mettre à jour
+
     window.requestAnimationFrame(function () {
-      _this.update();
+      _this2.animate();
     }); // la prochaine fois que tu rafraichis le code, c-a-d 60x/seconde, appelle cette fonction
+
+    window.addEventListener('mousemove', function (e) {
+      _this2.mouse.x = e.x;
+      console.log('uhuhuhu');
+      _this2.mouse.y = e.y; //on utilise les coordonnées de l'évènement
+    });
   }
 };
-circle.init();
-window.addEventListener('resize', function () {
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
-}); //ctx.fillstyle=circle.colors.sort(()=>0.5-Math.random()); //moyen de tirer un evaleur aléatoire dans un array
+animation.init(); //ctx.fillstyle=circle.colors.sort(()=>0.5-Math.random()); //moyen de tirer un evaleur aléatoire dans un array
 //function animate(){
 //  if(circle.position.y + radius > canvas.height || circle.position.y - radius < 0){
 //  circle.speed.y=-circle.speed.y
@@ -94,7 +159,6 @@ window.addEventListener('resize', function () {
   \***********************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 // extracted by mini-css-extract-plugin
 
@@ -133,6 +197,18 @@ __webpack_require__.r(__webpack_exports__);
 /******/ 	// It's empty as some runtime module handles the default behavior
 /******/ 	__webpack_require__.x = x => {};
 /************************************************************************/
+/******/ 	/* webpack/runtime/define property getters */
+/******/ 	(() => {
+/******/ 		// define getter functions for harmony exports
+/******/ 		__webpack_require__.d = (exports, definition) => {
+/******/ 			for(var key in definition) {
+/******/ 				if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
+/******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
+/******/ 				}
+/******/ 			}
+/******/ 		};
+/******/ 	})();
+/******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */
 /******/ 	(() => {
 /******/ 		__webpack_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))

@@ -1,6 +1,7 @@
 const mix = require('laravel-mix');
 
 mix.js('src/app.js', 'js')
+    .js('src/Circle.js', 'js')
     .sass('src/main.scss', 'main.css')
   .setPublicPath('dist');
 
