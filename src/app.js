@@ -3,7 +3,7 @@ import Circle from "./Circle";
 const animation={
     canvas : document.querySelector('canvas'),
     circles : [],
-    circlesCount : 100,
+    circlesCount : 20,
     ctx : null, //car on peut pas faire référence à d'autres propriétés lors de la déclaration
     mouse: {x:undefined,y:undefined,zoneSize:50},
     init(){
@@ -11,7 +11,7 @@ const animation={
         this.canvas.width = window.innerWidth
         this.canvas.height = window.innerHeight
         for (let i = 0; i < this.circlesCount; i++) {
-            this.circles.push(new Circle(this.canvas, this.ctx))
+            this.circles.push(new Circle(animation))//this.canvas, this.ctx,this.mouse
             window.addEventListener('resize', () => {
                 this.canvas.width = window.innerWidth
                 this.canvas.height = window.innerHeight

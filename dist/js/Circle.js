@@ -48,20 +48,24 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
 var Circle = /*#__PURE__*/function () {
-  function Circle(canvas, ctx) {
+  function Circle(animation) {
     _classCallCheck(this, Circle);
 
-    this.ctx = ctx;
-    this.canvas = canvas;
+    //canvas,ctx,mouse
+    this.mouse = animation.mouse;
+    this.ctx = animation.ctx;
+    this.canvas = animation.canvas;
     this.speed = {
-      x: -2 + Math.random() * 5,
-      y: -2 + Math.random() * 5
+      x: 2,
+      y: 2
     };
     this.radius = 5 + Math.random() * 5; //entre 5 et 10
 
+    this.minRadius = this.radius; //taille de départ et donc minimum
+
     this.position = {
-      x: this.radius + Math.random() * (canvas.width - 2 * this.radius),
-      y: this.radius + Math.random() * (canvas.height - 2 * this.radius)
+      x: this.radius + Math.random() * (this.canvas.width - 2 * this.radius),
+      y: this.radius + Math.random() * (this.canvas.height - 2 * this.radius)
     };
     this.color = Circle.colors.sort(function () {
       return 0.5 - Math.random();
@@ -90,13 +94,25 @@ var Circle = /*#__PURE__*/function () {
       }
 
       this.position.y += this.speed.y;
-      this.position.x += this.speed.x;
+      this.position.x += this.speed.x; //interact with the mouse
+
+      if (this.position.y >= this.mouse.y - this.mouse.zoneSize / 2 && this.position.y <= this.mouse.y + this.mouse.zoneSize / 2 && this.position.x > this.mouse.x - this.mouse.zoneSize / 2 && this.position.x < this.mouse.x + this.mouse.zoneSize / 2 && this.radius < Circle.maxRadius) {
+        this.radius += 1;
+      } else if (this.radius > this.minRadius) {
+        this.radius -= 1;
+      }
+
       this.draw();
     }
   }], [{
     key: "colors",
     get: function get() {
       return ['#40A497', 'black', 'red'];
+    }
+  }, {
+    key: "maxRadius",
+    get: function get() {
+      return 30;
     }
   }]);
 
