@@ -6,10 +6,13 @@ const circles = []
 const circlesCount = 100
 //const radius= canvas.width/10
 let ctx=canvas.getContext('2d')
+
+
+
 const circle= {
     position: null, // quand on déclare des propriétés on ne peut pas prendre des valeurs d'autres propriétés, d'abord la déclarer
     speed: 0,
-    radius: null,
+    radius: 0,
     colors: ['#40A497', 'black', 'red'],
     color: '',
     init () {
@@ -40,7 +43,7 @@ const circle= {
             if (this.position.y + this.radius > canvas.height || this.position.y - this.radius < 0) {
                 this.speed.y = -this.speed.y
             }
-            if (this.position.x + radius > canvas.width || this.position.x - radius < 0) {
+            if (this.position.x + this.radius > canvas.width || this.position.x - this.radius < 0) {
                 this.speed.x = -this.speed.x
             }
             this.position.y += this.speed.y

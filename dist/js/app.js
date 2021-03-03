@@ -19,7 +19,7 @@ var circle = {
   position: null,
   // quand on déclare des propriétés on ne peut pas prendre des valeurs d'autres propriétés, d'abord la déclarer
   speed: 0,
-  radius: null,
+  radius: 0,
   colors: ['#40A497', 'black', 'red'],
   color: '',
   init: function init() {
@@ -53,7 +53,7 @@ var circle = {
       this.speed.y = -this.speed.y;
     }
 
-    if (this.position.x + radius > canvas.width || this.position.x - radius < 0) {
+    if (this.position.x + this.radius > canvas.width || this.position.x - this.radius < 0) {
       this.speed.x = -this.speed.x;
     }
 
@@ -61,7 +61,7 @@ var circle = {
     this.position.x += this.speed.x;
     this.draw();
     window.requestAnimationFrame(function () {
-      return _this.update();
+      _this.update();
     }); // la prochaine fois que tu rafraichis le code, c-a-d 60x/seconde, appelle cette fonction
   }
 };
